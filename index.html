@@ -23,11 +23,30 @@
         li a {
             text-decoration: none;
             color: white;
+            position: relative;
             transition: color 0.3s;
         }
 
         li a:hover {
             color: #660ec9;
+        }
+
+        li a::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #660ec9, #360569);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        li a:hover::before {
+            opacity: 1;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -36,7 +55,7 @@
 <h1>EMS Logs</h1>
 
 <ul>
-    <li><a href="emslogs/logs/kontakt-baeowsky.html" target="_blank">kontakt-baeowsky.html</a></li>
+    <li><a href="/emslogs/logs/kontakt-baeowsky.html" target="_blank">kontakt-baeowsky.html</a></li>
 </ul>
 
 </body>
