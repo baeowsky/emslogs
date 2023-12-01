@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMS Logs</title>
+</head>
+<body>
+
+<h1>Lista plików EMS Logs</h1>
+
+<ul id="fileList">
+    <!-- Lista plików zostanie umieszczona tutaj dynamicznie -->
+</ul>
+
+<script>
+    function generateFileList() {
+        var fileListElement = document.getElementById('fileList');
+
+        var fileNames = [
+            // Tutaj dodaj nazwy plików, możesz użyć np. fetch z GitHub API, jeśli jest to publiczne repozytorium
+            // np. 'file1.html', 'file2.html', ...
+        ];
+
+        fileNames.forEach(function (fileName) {
+            var listItem = document.createElement('li');
+            var link = document.createElement('a');
+
+            link.href = 'logs/' + fileName;
+            link.textContent = fileName;
+
+            // Dodaj obsługę kliknięcia dla otwierania pliku
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                openFile(link.href);
+            });
+
+            listItem.appendChild(link);
+            fileListElement.appendChild(listItem);
+        });
+    }
+
+    function openFile(filePath) {
+        // Tutaj możesz dodać kod do otwierania pliku, na przykład używając window.open() lub innych metod
+        // Pamiętaj, że otwieranie plików na stronie internetowej jest ograniczone ze względów bezpieczeństwa
+        // i może wymagać pewnych uprawnień od użytkownika.
+
+        // Przykład otwarcia pliku w nowym oknie
+        window.open(filePath, '_blank');
+    }
+
+    window.onload = generateFileList;
+</script>
+
+</body>
+</html>
