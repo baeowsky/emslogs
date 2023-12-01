@@ -3,40 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista Plików z /logs</title>
+    <title>EMS Logs</title>
 </head>
 <body>
-    <h1>Lista Plików z /logs</h1>
 
-    <ul id="fileList"></ul>
+<h1>EMS Logs</h1>
 
-    <script>
-        function fetchFileList() {
-            fetch('/emslogs/logs')
-                .then(response => response.json())
-                .then(data => {
-                    const fileList = document.getElementById('fileList');
-                    fileList.innerHTML = ''; // Clear the previous list
+<!-- Lista plików z /logs -->
+<ul id="logsList"></ul>
 
-                    data.forEach(file => {
-                        const listItem = document.createElement('li');
-                        const link = document.createElement('a');
-                        link.href = `/emslogs/logs/${file}`;
-                        link.target = '_blank'; // Open link in a new tab
-                        link.textContent = file;
+<script>
+    // Funkcja do dynamicznego ładowania listy plików
+    function loadLogsList() {
+        // Ścieżka do folderu /logs
+        const logsFolderPath = 'emslogs/logs/';
 
-                        listItem.appendChild(link);
-                        fileList.appendChild(listItem);
-                    });
-                })
-                .catch(error => console.error('Error fetching file list:', error));
-        }
+        // Element, w którym będzie wyświetlana lista
+        const logsListElement = document.getElementById('logsList');
 
-        // Initial fetch on page load
-        fetchFileList();
+        // Pobierz listę plików z /logs
+        fetch(logsFolderPath)
+            .then(response => response.json())
+            .then(files => {
+                // Wyczyść listę przed dodaniem nowych elementów
+                logsListElement.innerHTML = '';
 
-        // Automatically refresh the file list every 60 seconds (adjust as needed)
-        setInterval(fetchFileList, 60000);
-    </script>
+                // Dodaj każdy plik do listy jako odnośnik
+                files.forEach(file => {
+                    const fileLink = document.createElement('a');
+                    fileLink.href = logsFolderPath + file;
+                    fileLink.textContent = file;
+                    fileLink.target = '_blank'; // Otwiera plik w nowej karcie
+
+                    const listItem = document.createElement('li');
+                    listItem.appendChild(fileLink);
+
+                    logsListElement.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Błąd podczas pobierania listy plików:', error));
+    }
+
+    // Wywołaj funkcję do załadowania listy plików przy ładowaniu strony
+    loadLogsList();
+
+    // Ustaw interwał odświeżania co 5 sekund (5000 milisekund)
+    setInterval(loadLogsList, 5000);
+</script>
+
 </body>
 </html>
