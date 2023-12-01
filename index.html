@@ -9,47 +9,9 @@
 
 <h1>EMS Logs</h1>
 
-<!-- Lista plików z /logs -->
-<ul id="logsList"></ul>
-
-<script>
-    // Funkcja do dynamicznego ładowania listy plików
-    function loadLogsList() {
-        // Ścieżka do folderu /logs
-        const logsFolderPath = 'emslogs/logs/';
-
-        // Element, w którym będzie wyświetlana lista
-        const logsListElement = document.getElementById('logsList');
-
-        // Pobierz listę plików z /logs
-        fetch(logsFolderPath)
-            .then(response => response.json())
-            .then(files => {
-                // Wyczyść listę przed dodaniem nowych elementów
-                logsListElement.innerHTML = '';
-
-                // Dodaj każdy plik do listy jako odnośnik
-                files.forEach(file => {
-                    const fileLink = document.createElement('a');
-                    fileLink.href = logsFolderPath + file;
-                    fileLink.textContent = file;
-                    fileLink.target = '_blank'; // Otwiera plik w nowej karcie
-
-                    const listItem = document.createElement('li');
-                    listItem.appendChild(fileLink);
-
-                    logsListElement.appendChild(listItem);
-                });
-            })
-            .catch(error => console.error('Błąd podczas pobierania listy plików:', error));
-    }
-
-    // Wywołaj funkcję do załadowania listy plików przy ładowaniu strony
-    loadLogsList();
-
-    // Ustaw interwał odświeżania co 5 sekund (5000 milisekund)
-    setInterval(loadLogsList, 5000);
-</script>
+<ul>
+    <li><a href="emslogs/logs/kontakt-baeowsky.html" target="_blank">kontakt-baeowsky.html</a></li>
+</ul>
 
 </body>
 </html>
